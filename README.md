@@ -2,4 +2,4 @@
 
 This project is a To Do List App using HTML, CSS and JavaScript.
 
-I have added comments in the code at every step.
+I added comments in the code at each step to make it easier to understand.
