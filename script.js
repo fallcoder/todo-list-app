@@ -6,17 +6,30 @@ const taskList = document.getElementById('task-list');
 
 let editingTaskItem = null;
 
+document.addEventListener('DOMContentLoaded', function() {
+    const savedTasks = JSON.parse(localStorage.getItem('tasks'));
+    if(savedTasks) {
+        savedTasks.forEach(task => {
+            addTaskToList(task);
+        });
+    }
+});
+
+
 // event listener for form submission
 taskForm.addEventListener('submit', function(e) {
     e.preventDefault();
 
-    // Checking if an existing task is being edited or a new task is being added
+    // checking if an existing task is being edited or a new task is being added
     if(!editingTaskItem) {
         addTask();
     }
     else {
         editTask();
     }
+
+    // reset the form after adding or editing a task
+    taskForm.reset();
 });
 
 // function to add a new task
@@ -28,6 +41,17 @@ function addTask() {
         return;
     }
 
+    // add the task to the list and localStorage
+    addTaskToList(task);
+
+    // add the task to localStorage
+    const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    savedTasks.push(task);
+    localStorage.setItem('tasks', JSON.stringify(savedTasks));
+}
+
+// function to add a task to the list
+function addTaskToList(task) {
     // creating html elements for the new task
     const taskItem = document.createElement('li');
     taskItem.className = 'task-item';
@@ -52,9 +76,7 @@ function addTask() {
     // inserting the new task at the beginning of the task list
     taskList.insertAdjacentElement('afterbegin', taskItem);
 
-    // clearing the task input field
-    taskInput.value = ''; // why reset isn't good fos this
-
+    // event listener for editing the task
     editButton.addEventListener('click', () => {
         taskInput.value = taskContent.textContent;
         addButton.textContent = 'Edit';
@@ -64,13 +86,20 @@ function addTask() {
     // event listener for deleting the task
     deleteButton.addEventListener('click', () => {
         taskList.removeChild(taskItem);
-        taskInput.value = '';
         editingTaskItem = null;
         addButton.textContent = 'Add';
-    });
-}
 
-// fucntin to edit an existing task
+        // delete task from localStorage
+        const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        const index = savedTasks.indexOf(task);
+        if(index !== -1) {
+            savedTasks.splice(index, 1)
+            localStorage.setItem('tasks', JSON.stringify(savedTasks));
+        }
+    });
+
+}
+// function to edit an existing task
 function editTask() {
     const editedTask = taskInput.value.trim();
 
@@ -79,17 +108,21 @@ function editTask() {
         return;
     }
 
-    //  Finding the content span of the task being edited
-    const editedTaskContent = editingTaskItem.querySelector('.task-content');
+     // // Find the index of the task to edit in savedTasks
+    const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const index = savedTasks.indexOf(editingTaskItem.querySelector('.task-content').textContent);
 
-    // updating the content of the task
-    editedTaskContent.textContent = editedTask;
+     if(index !== -1) {
+        // updating task in savedTasks
+        savedTasks[index] = editedTask;
+        localStorage.setItem('tasks', JSON.stringify(savedTasks)); 
+        
+        // updating the UI
+        editingTaskItem.querySelector('.task-content').textContent = editedTask;
 
-    // Resetting the Add button text and editingTaskItem variable
-    addButton.textContent = 'Add';
-    editingTaskItem = null;
-
-     // Clearing the task input field
-    taskInput.value = '';
-
+        // Resetting the Add button text and editingTaskItem variable
+        addButton.textContent = 'Add';
+        editingTaskItem = null;  
+    }
+   
 }
