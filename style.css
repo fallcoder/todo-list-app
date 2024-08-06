@@ -4,7 +4,7 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background: linear-gradient(to right, #4caf50, #2196f3);
+    background: linear-gradient(to right, #7a4caf, #f321d0);
     font-family: 'Arial', Helvetica, sans-serif;
 }
 
@@ -60,6 +60,8 @@ body {
     padding: 0;
     margin: 0;
     list-style: none;
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 .task-item {
@@ -70,6 +72,7 @@ body {
     border-radius: 8px;
     margin: 10px 0;
     padding: 10px;
+    margin-right: 10px;
 }
 
 .task-item span {
@@ -91,5 +94,5 @@ body {
 }
 
 #delete {
-    background: #2196f3;
+    background: #f32121;
 }
