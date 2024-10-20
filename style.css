@@ -19,6 +19,7 @@ body {
 
 #todo-container h1 {
     color: #3e3e3e;
+    font-size: 24px;
 }
 
 #task-form {
@@ -61,7 +62,8 @@ body {
     margin: 0;
     list-style: none;
     max-height: 400px;
-    overflow-y: auto;
+    overflow-y: scroll;
+    padding-right: 10px;
 }
 
 .task-item {
@@ -72,7 +74,6 @@ body {
     border-radius: 8px;
     margin: 10px 0;
     padding: 10px;
-    margin-right: 10px;
 }
 
 .task-item span {
@@ -85,7 +86,8 @@ body {
     color: #fff;
     border: none;
     border-radius: 5px;
-    padding: 9px 12px;
+    padding: 10px;
+    font-size: 14px;
     cursor: pointer;
 }
 
@@ -95,4 +97,80 @@ body {
 
 #delete {
     background: #f32121;
+}
+
+/* responsive styling for tablet and mobile */
+@media (max-width: 768px) {
+    #todo-container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    #task-form {
+        flex-direction: column;
+    }
+
+    #task-input, #add-button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .task-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .task-item span {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    #todo-container h1 {
+        font-size: 20px;
+    }
+
+    #task-form {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+    }
+
+    #task-input {
+        font-size: 14px;
+    }
+
+    #add-button {
+        font-size: 14px;
+        width: 30%;
+    }
+
+    #task-list {
+        max-height: 250px;
+        list-style: none;
+        overflow-y: scroll;
+        padding-right: 5px;
+    }
+
+    .task-item {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 10px 0;
+        padding: 8px;
+        width: 96%;
+    } 
+
+    .task-item button {
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        cursor: pointer;
+        margin-right: 5px;
+        font-size: 12px;
+    }
+
 }
