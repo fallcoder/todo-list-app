@@ -4,11 +4,15 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
+    overflow-y: scroll;
     background: linear-gradient(to right, #7a4caf, #f321d0);
     font-family: 'Arial', Helvetica, sans-serif;
 }
 
 #todo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background: rgba(255, 255, 255, 0.5);
     border-radius: 15px;
     padding: 5px 30px;
@@ -99,32 +103,7 @@ body {
     background: #f32121;
 }
 
-/* responsive styling for tablet and mobile */
-@media (max-width: 768px) {
-    #todo-container {
-        width: 90%;
-        padding: 20px;
-    }
-
-    #task-form {
-        flex-direction: column;
-    }
-
-    #task-input, #add-button {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    .task-item {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .task-item span {
-        width: 100%;
-    }
-}
-
+/* responsive styling for mobile */
 @media (max-width: 480px) {
     #todo-container h1 {
         font-size: 20px;
@@ -149,7 +128,7 @@ body {
     #task-list {
         max-height: 250px;
         list-style: none;
-        overflow-y: scroll;
+        overflow-y: none;
         padding-right: 5px;
     }
 
